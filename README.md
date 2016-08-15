@@ -306,6 +306,16 @@ We mostly follow Java's and Scala's standard naming conventions.
    }
    ```
 
+   + Foo
+
+     ```scala
+     class Map[K, V] {
+       def get(key: K): V
+       def put(key: K, value: V): Unit
+     }
+     ```
+
+
 
 #####  Parameterized Type Parameters
 
