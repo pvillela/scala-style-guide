@@ -300,12 +300,12 @@ We mostly follow Java's and Scala's standard naming conventions.
   * If the scope of the type parameter is small enough, a mnemonic can be
 used in place of a longer, descriptive name:
 
-    ```scala
-    class Map[K, V] {
-      def get(key: K): V
-      def put(key: K, value: V): Unit
-    }
-    ```
+      ```scala
+      class Map[K, V] {
+        def get(key: K): V
+        def put(key: K, value: V): Unit
+      }
+      ```
 
 #####  Parameterized Type Parameters
 
