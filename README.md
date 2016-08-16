@@ -306,15 +306,6 @@ We mostly follow Java's and Scala's standard naming conventions.
     }
     ```
 
-    + Foo
-
-      ```scala
-      class Map[K, V] {
-        def get(key: K): V
-        def put(key: K, value: V): Unit
-      }
-      ```
-
 
 #####  Parameterized Type Parameters
 
@@ -339,84 +330,84 @@ We mostly follow Java's and Scala's standard naming conventions.
 
 #### Header and Constructor
 
-Class constructors should be declared all on one line, unless the line becomes “too long” (beyond 100 characters). In that case, put each constructor argument on its own line, indented four spaces:
+- Class constructors should be declared all on one line, unless the line becomes “too long” (beyond 100 characters). In that case, put each constructor argument on its own line, indented four spaces:
 
-```scala
-class Person(name: String, age: Int) {
-  def firstMethod: Foo = ...
-  ...
-}
+  ```scala
+  class Person(name: String, age: Int) {
+    def firstMethod: Foo = ...
+    ...
+  }
 
-class Person(
-    name: String,
-    age: Int,
-    birthdate: Date,
-    astrologicalSign: String,
-    shoeSize: Int,
-    favoriteColor: java.awt.Color) {
-  def firstMethod: Foo = ...
-  ...
-}
-```
+  class Person(
+      name: String,
+      age: Int,
+      birthdate: Date,
+      astrologicalSign: String,
+      shoeSize: Int,
+      favoriteColor: java.awt.Color) {
+    def firstMethod: Foo = ...
+    ...
+  }
+  ```
 
-If a class/object/trait extends anything, the same general rule applies, put it on one line unless it goes over about 100 characters.  If it exceeds 100 characters, indent four spaces with each item being on its own line and two spaces for extensions; this provides visual separation between constructor arguments and extensions.  Also put a blank line at the top of the body of the class:
+- If a class/object/trait extends anything, the same general rule applies, put it on one line unless it goes over about 100 characters.  If it exceeds 100 characters, indent four spaces with each item being on its own line and two spaces for extensions; this provides visual separation between constructor arguments and extensions.  Also put a blank line at the top of the body of the class:
 
-```scala
-class Person(
-    name: String,
-    age: Int,
-    birthdate: Date,
-    astrologicalSign: String,
-    shoeSize: Int,
-    favoriteColor: java.awt.Color)
-  extends Entity
-  with Logging
-  with Identifiable
-  with Serializable {
+  ```scala
+  class Person(
+      name: String,
+      age: Int,
+      birthdate: Date,
+      astrologicalSign: String,
+      shoeSize: Int,
+      favoriteColor: java.awt.Color)
+    extends Entity
+    with Logging
+    with Identifiable
+    with Serializable {
 
-  def firstMethod: Foo = ...
-  ...
-}
-```
+    def firstMethod: Foo = ...
+    ...
+  }
+  ```
 
 #### Ordering Of Class Elements
 
-All class/object/trait members should be declared interleaved with newlines. The only exceptions to this rule are var and val. These may be declared without the intervening newline, but only if none of the fields have Scaladoc and if all of the fields have simple (max of 20-ish chars, one line) definitions:
+- All class/object/trait members should be declared interleaved with newlines. The only exceptions to this rule are var and val. These may be declared without the intervening newline, but only if none of the fields have Scaladoc and if all of the fields have simple (max of 20-ish chars, one line) definitions:
 
-```scala
-class Foo {
-  val bar = 42
-  val baz = "Daniel"
+  ```scala
+  class Foo {
+    val bar = 42
+    val baz = "Daniel"
 
-  def doSomething(): Unit = { ... }
+    def doSomething(): Unit = { ... }
 
-  def add(x: Int, y: Int): Int = x + y
-}
-```
+    def add(x: Int, y: Int): Int = x + y
+  }
+  ```
 
-Fields should precede methods in a scope. 
+- Fields should precede methods in a scope. 
 
-- The only exception is if the val has a block definition (more than one expression) and performs operations which may be deemed “method-like” (e.g., computing the length of a List). In such cases, the non-trivial val may be declared at a later point in the file as logical member ordering would dictate. 
+  * The only exception is if the val has a block definition (more than one expression) and performs operations which may be deemed “method-like” (e.g., computing the length of a List). In such cases, the non-trivial val may be declared at a later point in the file as logical member ordering would dictate. 
   * This exception only applies to val and lazy val (**never to var**)! It becomes very difficult to track changing aliases if var declarations are strewn throughout class file.
 
-If a class is long and has many methods, group them logically into different sections, and use comment headers to organize them.
+- If a class is long and has many methods, group them logically into different sections, and use comment headers to organize them.
 
-```scala
-class DataFrame {
+  ```scala
+  class DataFrame {
 
-  /////////////////////////////////////
-  // DataFrame operations
+    /////////////////////////////////////
+    // DataFrame operations
 
-  ...
+    ...
 
-  /////////////////////////////////////
-  // RDD operations
+    /////////////////////////////////////
+    // RDD operations
 
-  ...
-}
-```
+    ...
+  }
+  ```
 
-Of course, the situation in which a class grows this long is strongly discouraged, and is generally reserved only for building certain public APIs.
+  Of course, the situation in which a class grows this long is strongly discouraged, and is generally reserved only for building certain public APIs.
 
 
 ### Imports
@@ -426,6 +417,7 @@ Of course, the situation in which a class grows this long is strongly discourage
 - Always import packages using absolute paths (e.g. `scala.util.Random`) instead of relative ones (e.g. `util.Random`).
 
 - In addition, sort imports in the following order:
+
   * Project classes
   * `scala.*`
   * `play.*`
@@ -456,359 +448,355 @@ Of course, the situation in which a class grows this long is strongly discourage
 
 #### Return Type
 
-**Specify a return type for all public members**. Consider it documentation checked by the compiler. It also avoids confusion as weird subtypes may result from type inference.  Finally, it also helps in preserving binary compatibility in the face of changing type inference (changes to the method implementation may propagate to the return type if it is inferred).
+- **Specify a return type for all public members**. Consider it documentation checked by the compiler. It also avoids confusion as weird subtypes may result from type inference.  Finally, it also helps in preserving binary compatibility in the face of changing type inference (changes to the method implementation may propagate to the return type if it is inferred).
 
-Local methods or private methods may omit their return type:
+- Local methods or private methods may omit their return type:
 
-```scala
-private def foo(x: Int = 6, y: Int = 7) = x + y
-```
+  ```scala
+  private def foo(x: Int = 6, y: Int = 7) = x + y
+  ```
 
 #### Modifiers
 
-Method modifiers should be given in the following order (when each is applicable):
+- Method modifiers should be given in the following order (when each is applicable):
 
-1. Annotations, each on their own line
-2. Override modifier (override)
-3. Access modifier (protected, private)
-4. Final modifier (final)
-5. def
+  1. Annotations, each on their own line
+  2. Override modifier (override)
+  3. Access modifier (protected, private)
+  4. Final modifier (final)
+  5. def
 
-```scala
-@Transaction
-@throws(classOf[IOException])
-override protected final def foo() {
-  ...
-}
-```
+  ```scala
+  @Transaction
+  @throws(classOf[IOException])
+  override protected final def foo() {
+    ...
+  }
+  ```
 
 #### Declaring Methods of Arity 0
 
-Methods that take no arguments should be declared without parentheses **if and only if** they are accessors that have no side-effect (state mutation, I/O operations are considered side-effects).
+- Methods that take no arguments should be declared without parentheses **if and only if** they are accessors that have no side-effect (state mutation, I/O operations are considered side-effects).
 
-```scala
-class Job {
-  // Wrong: killJob changes state. Should have ().
-  def killJob: Unit
+  ```scala
+  class Job {
+    // Wrong: killJob changes state. Should have ().
+    def killJob: Unit
 
-  // Correct:
-  def killJob(): Unit
-}
+    // Correct:
+    def killJob(): Unit
+  }
 
-case class Person(firstName: String, lastName: String) {
-  // Correct:
-  def fullName: String = firstName + " " + lastName
-}
-```
+  case class Person(firstName: String, lastName: String) {
+    // Correct:
+    def fullName: String = firstName + " " + lastName
+  }
+  ```
 
-Note that internal domain-specific languages have a tendency to break the guidelines given above for the sake of syntax. Such exceptions should not be considered a violation so much as a time when these rules do not apply. In a DSL, syntax should be paramount over convention.
+  *Note that internal domain-specific languages have a tendency to break the guidelines given above for the sake of syntax. Such exceptions should not be considered a violation so much as a time when these rules do not apply. In a DSL, syntax should be paramount over convention.*
 
 #### Short Functional Methods
 
-When a method body comprises a single expression which is less than 30 (or so) characters, it should be given on a single line with the method:
+- When a method body comprises a single expression which is less than 30 (or so) characters, it should be given on a single line with the method:
 
-```scala
-def add(a: Int, b: Int): Int = a + b
-```
+  ```scala
+  def add(a: Int, b: Int): Int = a + b
+  ```
 
-When the method body is a single expression longer than 30 (or so) characters but still shorter than 70 (or so) characters, it should be given on the following line, indented two spaces:
+- When the method body is a single expression longer than 30 (or so) characters but still shorter than 70 (or so) characters, it should be given on the following line, indented two spaces:
 
-```scala
-def sum(ls: List[String]): Int =
-  ls.map(_.toInt).foldLeft(0)(_ + _)
-```
+  ```scala
+  def sum(ls: List[String]): Int =
+    ls.map(_.toInt).foldLeft(0)(_ + _)
+  ```
 
-The distinction between these two cases is somewhat artificial. Generally speaking, you should choose whichever style is more readable on a case-by-case basis. For example, your method declaration may be very long, while the expression body may be quite short. In such a case, it may be more readable to put the expression on the next line rather than making the declaration line too long.
+- The distinction between these two cases is somewhat artificial. Generally speaking, you should choose whichever style is more readable on a case-by-case basis. For example, your method declaration may be very long, while the expression body may be quite short. In such a case, it may be more readable to put the expression on the next line rather than making the declaration line too long.
 
 #### Longer Methods or Methods With Side-Effects
 
-When the body of a method cannot be concisely expressed in a single line or is of a non-functional nature (some mutable state, local or otherwise), the body must be enclosed in braces:
+- When the body of a method cannot be concisely expressed in a single line or is of a non-functional nature (some mutable state, local or otherwise), the body must be enclosed in braces:
 
-```scala
-def sum(ls: List[String]): Int = {
-  val ints = ls map (_.toInt)
-  ints.foldLeft(0)(_ + _)
-}
-```
+  ```scala
+  def sum(ls: List[String]): Int = {
+    val ints = ls map (_.toInt)
+    ints.foldLeft(0)(_ + _)
+  }
+  ```
 
-When method declarations don't fit in a single line, use 4 space indentation for its parameters. Return types can be either on the same line as the last parameter, or put to next line with a 2 space indent.
+- When method declarations don't fit in a single line, use 4 space indentation for its parameters. Return types can be either on the same line as the last parameter, or put to next line with a 2 space indent.
 
-```scala
-def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
-    path: String,
-    fClass: Class[F],
-    kClass: Class[K],
-    vClass: Class[V],
-    conf: Configuration = hadoopConfiguration): RDD[(K, V)] = {
-  // method body
-}
+  ```scala
+  def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
+      path: String,
+      fClass: Class[F],
+      kClass: Class[K],
+      vClass: Class[V],
+      conf: Configuration = hadoopConfiguration): RDD[(K, V)] = {
+    // method body
+  }
 
-def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
-    path: String,
-    fClass: Class[F],
-    kClass: Class[K],
-    vClass: Class[V],
-    conf: Configuration = hadoopConfiguration)
-  : RDD[(K, V)] = {
-  // method body
-}
-```
+  def newAPIHadoopFile[K, V, F <: NewInputFormat[K, V]](
+      path: String,
+      fClass: Class[F],
+      kClass: Class[K],
+      vClass: Class[V],
+      conf: Configuration = hadoopConfiguration)
+    : RDD[(K, V)] = {
+    // method body
+  }
+  ```
 
 #### Methods With Default Parameter Values
 
-Methods with default parameter values should be declared in an analogous fashion
-to the above, with a space on either side of the equals sign:
+- Methods with default parameter values should be declared in an analogous fashion to the above, with a space on either side of the equals sign:
 
-```scala
-def foo(x: Int = 6, y: Int = 7): Int = x + y
+  ```scala
+  def foo(x: Int = 6, y: Int = 7): Int = x + y
 
-def sum(ls: List[String] = Nil): Int = {
-  val ints = ls map (_.toInt)
-  ints.foldLeft(0)(_ + _)
-}
-
-```
+  def sum(ls: List[String] = Nil): Int = {
+    val ints = ls map (_.toInt)
+    ints.foldLeft(0)(_ + _)
+  }
+  ```
 
 #### Methods With a Single Match Expression
 
-Methods that contain a single match expression should be declared in the following way:
+- Methods that contain a single match expression should be declared in the following way:
 
-```scala
-// right!
-def sum(ls: List[Int]): Int = ls match {
-  case hd :: tail => hd + sum(tail)
-  case Nil => 0
-}
-```
-
-Not like this:
-
-```scala
-// wrong!
-def sum(ls: List[Int]): Int = {
-  ls match {
+  ```scala
+  // right!
+  def sum(ls: List[Int]): Int = ls match {
     case hd :: tail => hd + sum(tail)
     case Nil => 0
   }
-}
-```
+  ```
+
+  Not like this:
+
+  ```scala
+  // wrong!
+  def sum(ls: List[Int]): Int = {
+    ls match {
+      case hd :: tail => hd + sum(tail)
+      case Nil => 0
+    }
+  }
+  ```
 
 #### Procedure Syntax
 
-**Do not use the procedure syntax**.  It is confusing and it is in the process
+- **Do not use the procedure syntax**.  It is confusing and it is in the process
 of being deprecated.
 
-```scala
-// don't do this
-def printBar(bar: Baz) {
-  println(bar)
-}
+  ```scala
+  // don't do this
+  def printBar(bar: Baz) {
+    println(bar)
+  }
 
-// write this instead
-def printBar(bar: Bar): Unit = {
-  println(bar)
-}
-```
+  // write this instead
+  def printBar(bar: Bar): Unit = {
+    println(bar)
+  }
+  ```
 
 ### Field Declarations
 
-Fields should follow the declaration rules for methods, taking special note of access modifier ordering and annotation conventions.
+- Fields should follow the declaration rules for methods, taking special note of access modifier ordering and annotation conventions.
 
-Lazy vals should use the `lazy` keyword directly before the `val`:
+- Lazy vals should use the `lazy` keyword directly before the `val`:
 
-```scala
-private lazy val foo = bar()
-```
+  ```scala
+  private lazy val foo = bar()
+  ```
 
 
 ### Method Invocations
 
 #### Invoking Methods of Arity 0
 
-Call a method of arity-0 with parentheses if and only if it is declared with parentheses (see [Declaring Methods of Arity 0](#declaring-methods-of-arity-0)). _Note that this is not just syntactic. It can affect correctness when `apply` is defined in the returned object._
+- Call a method of arity-0 with parentheses if and only if it is declared with parentheses (see [Declaring Methods of Arity 0](#declaring-methods-of-arity-0)). _Note that this is not just syntactic. It can affect correctness when `apply` is defined in the returned object._
 
-```scala
-class Foo {
-def apply(args: String*): Int
-}
+  ```scala
+  class Foo {
+  def apply(args: String*): Int
+  }
 
-class Bar {
-def foo: Foo
-}
+  class Bar {
+  def foo: Foo
+  }
 
-new Bar().foo  // This returns a Foo
-new Bar().foo()  // This returns an Int!
-```
+  new Bar().foo  // This returns a Foo
+  new Bar().foo()  // This returns an Int!
+  ```
 
-Calling methods of arity-0 using suffix notation is unsafe and deprecated:
+- Calling methods of arity-0 using suffix notation is unsafe and deprecated:
 
-```scala
-names.toList
+  ```scala
+  names.toList
 
-// is the same as
+  // is the same as
 
-names toList // Unsafe, don't use!
-```
+  names toList // Unsafe, don't use!
+  ```
 
-Failure to follow this rule may result in unexpected compile errors at best, and happily compiled faulty code at worst.
+  Failure to follow this rule may result in unexpected compile errors at best, and happily compiled faulty code at worst.
 
 #### Infix Methods
 
-**Avoid infix notation** for methods that aren't symbolic methods (i.e., other than operator overloading).
-```scala
-// Correct
-list.map(func)
-string.contains("foo")
+- **Avoid infix notation** for methods that aren't symbolic methods (i.e., other than operator overloading).
 
-// Wrong
-list map (func)
-string contains "foo"
+  ```scala
+  // Correct
+  list.map(func)
+  string.contains("foo")
 
-// But overloaded operators should be invoked in infix style
-arrayBuffer += elem
-```
+  // Wrong
+  list map (func)
+  string contains "foo"
+
+  // But overloaded operators should be invoked in infix style
+  val map2 = map1 ++ elem
+  ```
 
 
 #### Methods With Multiple Arguments
 
-When a method invocation with several arguments doesn't fit in a single line, put the method invocation on the next line, indented two spaces, and each argument on a line by itself, indented two additioinal spaces from the current indent level:
+- When a method invocation with several arguments doesn't fit in a single line, put the method invocation on the next line, indented two spaces, and each argument on a line by itself, indented two additioinal spaces from the current indent level:
 
-```scala
-// right!
-val myOnerousAndLongFieldNameWithNoRealPoint =
-  foo(
-    someVeryLongFieldName,
-    andAnotherVeryLongFieldName,
-    "this is a string",
-    3.1415)
+  ```scala
+  // right!
+  val myOnerousAndLongFieldNameWithNoRealPoint =
+    foo(
+      someVeryLongFieldName,
+      andAnotherVeryLongFieldName,
+      "this is a string",
+      3.1415)
 
-// wrong!
-val myOnerousAndLongFieldNameWithNoRealPoint = foo(someVeryLongFieldName,
-                                                   andAnotherVeryLongFieldName,
-                                                   "this is a string",
-                                                   3.1415)
-```
+  // wrong!
+  val myOnerousAndLongFieldNameWithNoRealPoint = foo(someVeryLongFieldName,
+                                                     andAnotherVeryLongFieldName,
+                                                     "this is a string",
+                                                     3.1415)
+  ```
 
-Better yet, just try to avoid defining methods which take more than two or three parameters!
+- Better yet, just try to avoid defining methods which take more than two or three parameters!
 
 #### Methods Taking a Function as a Parameter
 
-When calling a method with a closure (or partial function) as a parameter, if there is only one case, put the case on the same line as the method 
-invocation.
+- When calling a method with a closure (or partial function) as a parameter, if there is only one case, put the case on the same line as the method invocation.
 
-```scala
-list.zipWithIndex.map { case (elem, i) =>
-  // ...
-}
-```
+  ```scala
+  list.zipWithIndex.map { case (elem, i) =>
+    // ...
+  }
+  ```
 
-If there are multiple cases, indent and wrap them.
+- If there are multiple cases, indent and wrap them.
 
-```scala
-list.map {
-  case a: Foo =>  ...
-  case b: Bar =>  ...
-}
-```
+  ```scala
+  list.map {
+    case a: Foo =>  ...
+    case b: Bar =>  ...
+  }
+  ```
 
 
 ### Control Structures
 
-All control structures should be written with a space following the defining keyword:
+- All control structures should be written with a space following the defining keyword:
 
-```scala
-// right!
-if (foo) bar else baz
-for (i <- 0 to 10) { ... }
-while (true) { println("Hello, World!") }
+  ```scala
+  // right!
+  if (foo) bar else baz
+  for (i <- 0 to 10) { ... }
+  while (true) { println("Hello, World!") }
 
-// wrong!
-if(foo) bar else baz
-for(i <- 0 to 10) { ... }
-while(true) { println("Hello, World!") }
-```
+  // wrong!
+  if(foo) bar else baz
+  for(i <- 0 to 10) { ... }
+  while(true) { println("Hello, World!") }
+  ```
 
-Use or omit braces in control structures according to the following rules:
+- Use or omit braces in control structures according to the following rules:
 
-- **if** - Omit braces if you have an else clause and both branches are single-line pure-functional expressions (no side-effects). Otherwise, surround the contents with curly braces even if the contents are only a single line.
+  * **if** - Omit braces if you have an else clause and both branches are single-line pure-functional expressions (no side-effects). Otherwise, surround the contents with curly braces even if the contents are only a single line.
 
-- **while** - Never omit braces (while cannot be used in a pure-functional manner).
+  * **while** - Never omit braces (while cannot be used in a pure-functional manner).
 
-- **for** - Omit braces after the yield clause if its expression fits on the same line or as a single next line. If there is no yield clause, surround the contents with curly-braces, even if the contents are only a single line.
+  * **for** - Omit braces after the yield clause if its expression fits on the same line or as a single next line. If there is no yield clause, surround the contents with curly-braces, even if the contents are only a single line.
 
-- **case** - Always omit braces in case clauses.
+  * **case** - Always omit braces in case clauses.
 
-- **Trivial conditionals** - There are certain situations where it is useful to create a short if/else expression for nested use within a larger expression. In Java, this sort of case would traditionally be handled by the ternary operator (?/:), a syntactic device which Scala lacks. In these situations (and really any time you have a extremely brief if/else expression) it is permissible to place the “then” and “else” branches on the same line as the if and else keywords. Note that this style should never be used with imperative if expressions nor should curly braces be employed.
+  * **Trivial conditionals** - There are certain situations where it is useful to create a short if/else expression for nested use within a larger expression. In Java, this sort of case would traditionally be handled by the ternary operator (?/:), a syntactic device which Scala lacks. In these situations (and really any time you have a extremely brief if/else expression) it is permissible to place the “then” and “else” branches on the same line as the if and else keywords. Note that this style should never be used with imperative if expressions nor should curly braces be employed.
 
-Examples:
+- Examples:
 
-```scala
-val news = if (foo)
-  goodNews()
-else
-  badNews()
-
-if (foo) {
-  println("foo was true")
-}
-
-while (bar()) {
-  doSomething()
-}
-
-for (x <- baz)
-  yield x * 2
-
-for (x <- baz) {
-  println(x * 2)
-}
-
-for (x <- baz)
-yield {
-  val y = something(x)
-  val z = somethingElse(x)
-  y + z
-}
-
-// Equivalent to above
-for {
-  x <- baz)
-  y = something(x)
-  z = somethingElse(x)
-} yield y + z
-
-news match {
-  case "good" =>
-    println("Good news!")
+  ```scala
+  val news = if (foo)
     goodNews()
-  case "bad" =>
-    println("Bad news!")
+  else
     badNews()
-}
 
-val res = if (foo) bar else baz
-```
+  if (foo) {
+    println("foo was true")
+  }
+
+  while (bar()) {
+    doSomething()
+  }
+
+  for (x <- baz)
+    yield x * 2
+
+  for (x <- baz) {
+    println(x * 2)
+  }
+
+  for (x <- baz)
+  yield {
+    val y = something(x)
+    val z = somethingElse(x)
+    y + z
+  }
+
+  // Equivalent to above
+  for {
+    x <- baz)
+    y = something(x)
+    z = somethingElse(x)
+  } yield y + z
+
+  news match {
+    case "good" =>
+      println("Good news!")
+      goodNews()
+    case "bad" =>
+      println("Bad news!")
+      badNews()
+  }
+
+  val res = if (foo) bar else baz
+  ```
 
 
 #### Comprehensions
 
-Scala has the ability to represent for-comprehensions with more than one generator (usually, more than one `<-` symbol). In such cases, there are two alternative syntaxes which could be used:
+- `for` comprehensions with more than one generator (more than one `<-` symbol) and a `yield` clause should use the second form below:
 
-```scala
-// wrong!
-for (x <- board.rows; y <- board.files)
-  yield (x, y)
+  ```scala
+  // wrong!
+  for (x <- board.rows; y <- board.files)
+    yield (x, y)
 
-// right!
-for {
-  x <- board.rows
-  y <- board.files
-} yield (x, y)
-```
+  // right!
+  for {
+    x <- board.rows
+    y <- board.files
+  } yield (x, y)
+  ```
 
-Use the second form for all **for-comprehensions of more than one generator**.
-
-- The exceptions to this rule are **for-comprehensions which lack a yield clause**. In such cases, the construct is actually a loop rather than a functional comprehension and it is usually more readable to string the generators together between parentheses rather than using the syntactically-confusing `} {` construct:
+- The exceptions to this rule are **`for` comprehensions which lack a `yield` clause**. In such cases, the construct is actually a loop rather than a functional comprehension and it is usually more readable to string the generators together between parentheses rather than using the syntactically-confusing `} {` construct, **if the generators fit in one line**:
 
   ```scala
   // wrong!
@@ -818,108 +806,99 @@ Use the second form for all **for-comprehensions of more than one generator**.
   } {
     printf("(%d, %d)", x, y)
   }
+
   // right!
   for (x <- board.rows; y <- board.files) {
     printf("(%d, %d)", x, y)
   }
   ```
 
-**Comprehensions with only a single generator** (e.g., `for (i <- 0 to 10) yield i`) should use the first form (parentheses rather than curly braces).
+- **Comprehensions with only a single generator** (e.g., `for (i <- 0 to 10) yield i`) should use the first form (parentheses rather than curly braces around the generator).
 
-Finally, `for` comprehensions are preferred to chained calls to `map`, `flatMap`, and `filter`, as they can get difficult to read (this is one of the purposes of the `for` comprehension).
+- `for` comprehensions are preferred to chained calls to `map`, `flatMap`, and `filter`, as such chained calls can get difficult to read (this is one of the purposes of the `for` comprehension).
 
 
 ### Function Values
 
-#### Single-Expression Functions
+- Single-expression function values (anonymours functions) should be declared as follows:
 
-Scala provides a number of different syntactic options for declaring function
-values (a.k.a. anonymous functions).  Although the following four declaration
-styles are possible, (1) and (4) are allowed, (2) and (3) are not:
+  ```scala
+  // yes
+  val f1 = ((a: Int, b: Int) => a + b)
 
-```scala
-// yes
-val f1 = ((a: Int, b: Int) => a + b)
-val f1a = (a: Int, b: Int) => a + b
+  // yes
+  val f2: (Int, Int) => Int = (_ + _)
+  val f2a: (Int, Int) => Int = ((a, b) => a + b)
 
-// no
-val f2 = (a: Int, b: Int) => a + b
+  // no
+  val f3 = (a: Int, b: Int) => a + b
 
-// no
-val f3 = (_: Int) + (_: Int)
+  // no
+  val f4 = (_: Int) + (_: Int)
+	```
 
-// yes
-val f4: (Int, Int) => Int = (_ + _)
-val f4a: (Int, Int) => Int = ((a, b) => a + b)
-val f4b: (Int, Int) => Int = (a, b) => a + b
-```
+  The style exemplified by f3 above appears shorter in this example, but whenever the function value spans multiple lines (as is often the case), this syntax becomes extremely unwieldy.
 
-#### Multi-Expression Functions
+- Multi-expression function values should follow the declaration style for methods
 
-Most function values are less trivial than the examples given above and contain
-more than one expression. In such cases, the declaration should follow the
-declaration style for methods, with the opening brace on the same line as the
-assignment or use of the function, while the closing brace is on its own line
-immediately following the last line of the function. Parameters should be on
-the same line as the opening brace, as should the “arrow” (`=>`):
+  The opening brace should be on the same line as the assignment or use of the function, while the closing brace is on its own line immediately following the last line of the function. Parameters should be on the same line as the opening brace, as should the “arrow” (`=>`):
 
-```scala
-val f1 = { (a: Int, b: Int) =>
-  val sum = a + b
-  sum
-}
-```
+  ```scala
+  val f1 = { (a: Int, b: Int) =>
+    val sum = a + b
+    sum
+  }
+  ```
 
-**Avoid excessive parentheses and curly braces** for function values:
+- **Avoid excessive parentheses and curly braces** for function values:
 
-```scala
-// Correct
-list.map { item =>
-  ...
-}
+  ```scala
+  // Correct
+  list.map { item =>
+    ...
+  }
 
-// Correct
-list.map(item => ...)
+  // Correct
+  list.map(item => ...)
 
-// Wrong
-list.map(item => {
-  ...
-})
+  // Wrong
+  list.map(item => {
+    ...
+  })
 
-// Wrong
-list.map { item => {
-  ...
-}}
+  // Wrong
+  list.map { item => {
+    ...
+  }}
 
-// Wrong
-list.map({ item => ... })
-```
+  // Wrong
+  list.map({ item => ... })
+  ```
 
-#### Type Inference
-
-As noted elsewhere in this guide, function values should leverage type inference whenever possible.
+- As noted elsewhere in this guide, function values should leverage type inference whenever possible.
 
 
 ### Long Literals
 
-Suffix long literal values with uppercase `L`. It is often hard to differentiate lowercase `l` from `1`.
+- Suffix long literal values with uppercase `L`. It is often hard to differentiate lowercase `l` from `1`.
 
-```scala
-val longValue = 5432L  // Do this
+  ```scala
+  val longValue = 5432L  // Do this
 
-val longValue = 5432l  // Do NOT do this
+  val longValue = 5432l  // Do NOT do this
 
-```
+  ```
 
 
 ### Rule of 30
 
-"If an element consists of more than 30 subelements, it is highly probable that there is a serious problem" - see [Refactoring in Large Software Projects](http://www.amazon.com/Refactoring-Large-Software-Projects-Restructurings/dp/0470858923).
+- "If an element consists of more than 30 subelements, it is highly probable that there is a serious problem" - see [Refactoring in Large Software Projects](http://www.amazon.com/Refactoring-Large-Software-Projects-Restructurings/dp/0470858923).
 
-In general:
+  In general:
 
-- A method should contain no more than 30 lines of code.
-- A class should contain no more than 30 methods (in most cases, no more than **10**).
+  * A method should contain no more than 30 lines of code.
+
+  * A class should contain no more than 30 methods (in most cases, no more than **10**).
 
 
 ## Scala Language Features
@@ -927,183 +906,180 @@ In general:
 
 ### apply Method
 
-Avoid defining apply methods on classes that do not implement a function interface. These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Method Invocations](#method-invocations).
+- Avoid defining apply methods on classes that do not implement a function interface.
 
-It is acceptable to define apply methods on companion objects as factory methods. In these cases, the apply method should return the companion class type.
+  These methods tend to make the code less readable, especially for people less familiar with Scala. It is also harder for IDEs (or grep) to trace. In the worst case, it can also affect correctness of the code in surprising ways, as demonstrated in [Method Invocations](#method-invocations).
 
-```scala
-object TreeNode {
-  // This is OK
-  def apply(name: String): TreeNode = ...
+- It is fine to define apply methods on companion objects as factory methods. In these cases, the apply method should return the companion class type.
 
-  // This is bad because it does not return a TreeNode
-  def apply(name: String): String = ...
-}
-```
+  ```scala
+  object TreeNode {
+    // This is OK
+    def apply(name: String): TreeNode = ...
+
+    // This is bad because it does not return a TreeNode
+    def apply(name: String): String = ...
+  }
+  ```
 
 
 ### override Modifier
-Always add override modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to make the override obvious, and to avoid accidental non-overrides due to non-matching signatures.
 
-```scala
-trait Parent {
-  def hello(data: Map[String, String]): Unit = {
-    print(data)
+- Always add the `override` modifier for methods, both for overriding concrete methods and implementing abstract methods. The Scala compiler does not require `override` for implementing abstract methods. However, we should always add `override` to avoid accidental non-overrides due to non-matching signatures.
+
+  ```scala
+  trait Parent {
+    def hello(data: Map[String, String]): Unit = {
+      print(data)
+    }
   }
-}
 
-class Child extends Parent {
-  import scala.collection.Map
+  class Child extends Parent {
+    import scala.collection.Map
 
-  // The following method does NOT override Parent.hello,
-  // because the two Maps have different types.
-  // If we added "override" modifier, the compiler would've caught it.
-  def hello(data: Map[String, String]): Unit = {
-    print("This is supposed to override the parent method, but it is actually not!")
+    // The following method does NOT override Parent.hello,
+    // because the two Maps have different types.
+    // If we added "override" modifier, the compiler would've caught it.
+    def hello(data: Map[String, String]): Unit = {
+      print("This is supposed to override the parent method, but it is actually not!")
+    }
   }
-}
-```
+  ```
 
 
 ### Call by Name
 
-**Exercise extreme caution when using call by name parameters**.  Implementations using call by name parameters must ensure the expression passed in is executed only once (e.g., assign it to a val and then use the val).
+- **Exercise extreme caution when using call by name parameters**.  Implementations using call by name parameters must ensure the expression passed in is executed only once (e.g., assign it to a val and then use the val). This is critically important for expressions that have side-effects.
 
-Background: Scala allows method parameters to be defined by-name, e.g. the following would work:
+  For example, in the following code, `inc()` is passed into `print` as a closure and is executed (twice) in the print method, rather than being passed in as a value `1`:
 
-```scala
-def print(value: => Int): Unit = {
-  println(value)
-  println(value + 1)
-}
+  ```scala
+  def print(value: => Int): Unit = {
+    println(value)
+    println(value + 1)
+  }
 
-var a = 0
-def inc(): Int = {
-  a += 1
-  a
-}
+  var a = 0
+  def inc(): Int = {
+    a += 1
+    a
+  }
 
-print(inc())
-```
-in the above code, `inc()` is passed into `print` as a closure and is executed (twice) in the print method, rather than being passed in as a value `1`. The main problem with call-by-name is that the caller cannot differentiate between call-by-name and call-by-value, and thus cannot know for sure whether the expression will be executed or not (or maybe worse, multiple times). This is especially dangerous for expressions that have side-effects.
+  print(inc())
+  ```
 
-If the print method above is modified as follows then the problem is avoided:
+  If the print method above is modified as follows then the problem is avoided:
 
-```scala
-def print(_value: => Int): Unit = {
-  val value = _value
-  println(value)
-  println(value + 1)
-}
-```
+  ```scala
+  def print(_value: => Int): Unit = {
+    val value = _value
+    println(value)
+    println(value + 1)
+  }
+  ```
 
 
 ### Multiple Parameter Lists
 
-**Avoid using multiple parameter lists**:
+- **Avoid defining methods with multiple parameter lists**.
 
-```scala
-// Avoid this!
-case class Person(name: String, age: Int)(secret: String)
-```
-
-Such methods (or similarly declared functions) have a more verbose declaration and invocation syntax and are harder for less-experienced Scala developers to understand.
-
-There are exceptions to this rule, but **these exceptions only apply to architecture framework developers**:
-
-1. For a **fluent API**
-
-   Multiple parameter lists allow you to create your own “control structures”:
-  
   ```scala
-  def unless(exp: Boolean)(code: => Unit): Unit = if (!exp) code
-
-  unless(x < 5) {
-    println("x was not less than five")
-  }
+  // Avoid this!
+  case class Person(name: String, age: Int)(secret: String)
   ```
 
-2. **Implicit Parameters**
+  Such methods (or similarly declared functions) have a more verbose declaration and invocation syntax and are harder for less-experienced Scala developers to understand.
 
-  When using implicit parameters, and you use the implicit keyword, it applies to the entire parameter list. Thus, if you want only some parameters to be implicit, you must use multiple parameter lists.  That said, [implicits should be avoided](#implicits)!
+  There are exceptions to this rule, but **these exceptions only apply to architecture framework developers**:
 
-3. **For type inference**
+  1. For a **fluent API**
 
-   When invoking a method using only some of the parameter lists, the type inferencer can allow a simpler syntax when invoking the remaining parameter lists.
+     Multiple parameter lists allow you to create your own “control structures”:
+
+     ```scala
+     def unless(exp: Boolean)(code: => Unit): Unit = if (!exp) code
+
+     unless(x < 5) {
+       println("x was not less than five")
+     }
+     ```
+
+  2. **Implicit Parameters**
+
+     When using implicit parameters, and you use the implicit keyword, it applies to the entire parameter list. Thus, if you want only some parameters to be implicit, you must use multiple parameter lists.  That said, [implicits should be avoided](#implicits)!
+
+  3. **For type inference**
+
+     When invoking a method using only some of the parameter lists, the type inferencer can allow a simpler syntax when invoking the remaining parameter lists.
 
 
 ### Accessors/Mutators
 
-Scala does *not* follow the Java convention of prepending `set`/`get` to
+- Scala does *not* follow the Java convention of prepending `set`/`get` to
 mutator and accessor methods (respectively). Instead, the following
 conventions are used:
 
--   For accessors of properties, the name of the method should be the
-    name of the property.
+  * For accessors of properties, the name of the method should be the name of the property.
 
--   In some instances, it is acceptable to prepend "\`is\`" on a boolean
-    accessor (e.g. `isEmpty`). This should only be the case when no
-    corresponding mutator is provided.
+  * In some instances, it is acceptable to prepend "\`is\`" on a boolean     accessor (e.g. `isEmpty`). This should only be the case when no     corresponding mutator is provided.
 
--   For mutators, the name of the method should be the name of the
-    property with "`_=`" appended. As long as a corresponding accessor
-    with that particular property name is defined on the enclosing type,
-    this convention will enable a call-site mutation syntax which
-    can be expressed as an assignment to the property.
+  * For mutators, the name of the method should be the name of the     property with "`_=`" appended. As long as a corresponding accessor with that particular property name is defined on the enclosing type, this convention will enable a call-site mutation syntax which can be expressed as an assignment to the property.
 
-```scala
-class Foo {
+    ```scala
+    class Foo {
 
-  def bar = ...
+      def bar = ...
 
-  def bar_=(bar: Bar) {
-    ...
-  }
+      def bar_=(bar: Bar) {
+        ...
+      }
 
-  def isBaz = ...
-}
+      def isBaz = ...
+    }
 
-val foo = new Foo
-foo.bar             // accessor
-foo.bar = bar2      // mutator
-foo.isBaz           // boolean property
-```
+    val foo = new Foo
+    foo.bar             // accessor
+    foo.bar = bar2      // mutator
+    foo.isBaz           // boolean property
+    ```
 
 
 ### Symbolic Methods -- Operator Overloading
 
-**Do NOT define methods with symbolic names**, unless you are defining them for natural arithmetic operations (e.g. `+`, `-`, `*`, `/`). Under no other circumstances should they be used. Symbolic method names make it very hard to understand the intent of the methods. Consider the following two examples:
+- **Do NOT define methods with symbolic names**, unless you are defining them for natural arithmetic operations (e.g. `+`, `-`, `*`, `/`).
 
-```scala
-// symbolic method names are hard to understand
-channel ! msg
-stream1 >>= stream2
+  Under no other circumstances should they be used. Symbolic method names make it very hard to understand the intent of the methods. Consider the following two examples:
 
-// self-evident what is going on
-channel.send(msg)
-stream1.join(stream2)
-```
+  ```scala
+  // symbolic method names are hard to understand
+  channel ! msg
+  stream1 >>= stream2
+
+  // self-evident what is going on
+  channel.send(msg)
+  stream1.join(stream2)
+  ```
 
 
 ### Type Inference
 
-Use type inference where possible, but put clarity first, and favour explicitness in public APIs.
+- Use type inference where possible, but put clarity first, and favour explicitness in public APIs.
 
-- You should almost never annotate the type of a private field or a local variable, as their type will usually be immediately evident in their value:
+  You should almost never annotate the type of a private field or a local variable, as their type will usually be immediately evident in their value:
 
   ```scala
   private val name = "Daniel"
   ```
 
-There are a few cases where explicit typing should be used:
+- There are a few cases where explicit typing should be used:
 
-- **Public methods and fields should be explicitly typed**, for API  clarity and also as otherwise the compiler's inferred type can often surprise you.
+  * **Public methods and fields should be explicitly typed**, for API  clarity and also as otherwise the compiler's inferred type can often surprise you.
 
-- **Local variables, private fields, and closures with non-obvious types should be explicitly typed**. A good litmus test is that explicit types should be used if a code reviewer cannot determine the type in 3 seconds.
+  * **Local variables, private fields, and closures with non-obvious types should be explicitly typed**. A good litmus test is that explicit types should be used if a code reviewer cannot determine the type in 3 seconds.
 
-- **Implicit methods should be explicitly typed**, otherwise it can crash the Scala compiler with incremental compilation.
+  * **Implicit methods should be explicitly typed**, otherwise it can crash the Scala compiler with incremental compilation.
 
-- Where type annotations are appropriate, they should be patterned according to the following template:
+  Where type annotations are appropriate, they should be patterned according to the following template:
 
   ```scala
   value: Type
@@ -1114,76 +1090,81 @@ There are a few cases where explicit typing should be used:
 
 ### Function Types
 
-Function types should be declared with a space between the parameter type, the arrow and the return type:
+- Function types should be declared with a space between the parameter type, the arrow and the return type:
 
-```scala
-def foo(f: Int => String) = ...
-def bar(f: (Boolean, Double) => List[String]) = ...
-```
+  ```scala
+  def foo(f: Int => String) = ...
+  def bar(f: (Boolean, Double) => List[String]) = ...
+  ```
 
-For functions of arity-1, the parentheses should be omitted from the parameter type:
+- For functions of arity-1, the parentheses should be omitted from the parameter type:
 
-```scala
-// right
-def foo(f: Int => String) = ...
+  ```scala
+  // right
+  def foo(f: Int => String) = ...
 
-// wrong
-def foo(f: (Int) => String) = ...
-```
+  // wrong
+  def foo(f: (Int) => String) = ...
+  ```
 
-In general, omit unnecessary parentheses in funtion types.  A more extreme example with a curried function parameter:
+- In general, omit unnecessary parentheses in funtion types.  A more extreme example with a curried function parameter:
 
-```scala
-// wrong!
-def foo(f: (Int) => ((String) => ((Boolean) => Double))) = ...
+  ```scala
+  // wrong!
+  def foo(f: (Int) => ((String) => ((Boolean) => Double))) = ...
 
-// wrong!
-def foo(f: (Int) => (String) => (Boolean) => Double) = ...
+  // wrong!
+  def foo(f: (Int) => (String) => (Boolean) => Double) = ...
 
-// right!
-def foo(f: Int => String => Boolean => Double) = ...
-```
+  // right!
+  def foo(f: Int => String => Boolean => Double) = ...
+  ```
 
 ### Return Statements
 
-**Do not use return.**
+**Do not use `return`.**
 
 
 ### Recursion and Tail Recursion
 
-**Avoid using recursion**, unless the problem can be naturally framed recursively (e.g. graph traversal, tree traversal) and the required traversal combinators don't already exist in the standard libraries.
+- **Avoid using recursion**, unless the problem can be naturally framed recursively (e.g. graph traversal, tree traversal) and the required traversal combinators don't already exist in the standard libraries.
 
-Use of combinators such as map, filter, foreach, and fold, as well as for expressions, obviate the need for direct use of recursion in the vast majority of situations. The solutions using the combinators are almost always shorter and clearer.
+  Use of combinators such as map, filter, foreach, and fold, as well as for expressions, obviate the need for direct use of recursion in the vast majority of situations. The solutions using the combinators are almost always shorter and clearer.
 
-For methods that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive. (You will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
+- For methods that are meant to be tail recursive, apply `@tailrec` annotation to make sure the compiler can check it is tail recursive. (You will be surprised how often seemingly tail recursive code is actually not tail recursive due to the use of closures and functional transformations.)
 
-In some cases, using an imperative loop may be the best answer, but this should be avoided in most cases unless there is a performance tuning justification.
+- In some cases, using an imperative loop may be the best answer, but this should be avoided in most cases unless there is a performance tuning justification.
 
 
 ### Implicits
 
-**Avoid using implicits**, unless:
-- you are building a domain-specific language
-- you are using it for implicit type parameters (e.g. `ClassTag`, `TypeTag`)
-- you are using it privately to your own class to reduce verbosity of converting from one type to another (e.g. Scala closure to Java closure)
+- **Avoid using implicits**, unless:
 
-When implicits are used, we must ensure that another engineer who did not author the code can understand the semantics of the usage without reading the implicit definition itself. Implicits have complicated resolution rules and make the code base difficult to understand. From Twitter's Effective Scala guide: "If you do find yourself using implicits, always ask yourself if there is a way to achieve the same thing without their help."
+  * You are building a domain-specific language (with approval from the chief architect).
 
-If you must use them (e.g. enriching some DSL), do not overload implicit methods, i.e. make sure each implicit method has distinct names, so users can selectively import them.
+  * You are building an architecture framework that augments classes outside the team's control or provides conversion utilities (with approval from the chief architect).
 
-```scala
-// Don't do the following, as users cannot selectively import only one of the methods.
-object ImplicitHolder {
-  def toRdd(seq: Seq[Int]): RDD[Int] = ...
-  def toRdd(seq: Seq[Long]): RDD[Long] = ...
-}
+  * You are using it privately to your own class to reduce verbosity of converting from one type to another (e.g., Scala closure to Java closure)
 
-// Do the following:
-object ImplicitHolder {
-  def intSeqToRdd(seq: Seq[Int]): RDD[Int] = ...
-  def longSeqToRdd(seq: Seq[Long]): RDD[Long] = ...
-}
-```
+  When implicits are used, we must ensure that another engineer who did not author the code can understand the semantics of the usage without reading the implicit definition itself. 
+
+  Implicits have complicated resolution rules and make the code base difficult to understand. From Twitter's Effective Scala guide: "If you do find yourself using implicits, always ask yourself if there is a way to achieve the same thing without their help."
+
+- If you must use them (e.g., enriching some DSL), do not overload implicit methods, i.e., make sure each implicit method has a distinct name, so users can selectively import them.
+
+  ```scala
+  // Don't do the following, as users cannot selectively import only one of the methods.
+  object ImplicitHolder {
+    def toRdd(seq: Seq[Int]): RDD[Int] = ...
+    def toRdd(seq: Seq[Long]): RDD[Long] = ...
+  }
+
+  // Do the following:
+  object ImplicitHolder {
+    def intSeqToRdd(seq: Seq[Int]): RDD[Int] = ...
+    def longSeqToRdd(seq: Seq[Long]): RDD[Long] = ...
+  }
+  ```
 
 
 ### Exception Handling (Try vs try)
@@ -1255,82 +1236,82 @@ object ImplicitHolder {
 
 ### Monadic Chaining
 
-One of Scala's powerful features is monadic chaining. Almost everything (e.g. collections, Option, Future, Try) is a monad and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly. In particular:
+- Avoid monadic chaining (and/or nesting) of more than 3 operations.
 
-- Avoid chaining (and/or nesting) more than 3 operations.
+  One of Scala's powerful features is monadic chaining. Several important classes in Scala (e.g. collections, Option, Future, Try) are monads and operations on them can be chained together. This is an incredibly powerful concept, but chaining should be used sparingly.
+
 - If it takes more than 5 seconds to figure out what the logic is, try hard to think about how you can express the same functionality without using monadic chaining. As a general rule, watch out for flatMaps and folds.
-- A chain should almost always be broken after a flatMap (because of the type change).
 
-A chain can often be made more understandable by giving the intermediate result a variable name, by explicitly typing the variable, and by breaking it down into more procedural style. As a contrived example:
+- A chain can often be made more understandable by giving the intermediate result a variable name, by explicitly typing the variable, and by breaking it down into more procedural style. As a contrived example:
 
-```scala
-class Person(val data: Map[String, String])
-val database = Map[String, Person]
-// Sometimes the client can store "null" value in the  store "address"
+  ```scala
+  class Person(val data: Map[String, String])
 
-// A monadic chaining approach
-def getAddress(name: String): Option[String] = {
-  database.get(name).flatMap { elem =>
-    elem.data.get("address")
-      .flatMap(Option.apply)  // handle null value
-  }
-}
+  val database = Map[String, Person]
 
-// A more readable approach, despite much longer
-def getAddress(name: String): Option[String] = {
-  if (!database.contains(name)) {
-    return None
+  // Sometimes the client can store a null value for the "address" key:
+
+  // A monadic chaining approach
+  def getAddress(name: String): Option[String] = {
+    database.get(name).flatMap { person =>
+      person.data.get("address")
+        .flatMap(Option.apply)  // handle null value
+    }
   }
 
-  database(name).data.get("address") match {
-    case Some(null) => None  // handle null value
-    case Some(addr) => Option(addr)
-    case None => None
+  // A more readable approach, despite being longer
+  def getAddress(name: String): Option[String] = database.get(name) match {
+    case None =>
+      None
+    case Some(person) =>
+      person.data.get("address") match {
+        case Some(null) => None  // handle null value
+        case Some(addr) => Option(addr)
+        case None => None
+      }
+    }
   }
-}
-
-```
+  ```
 
 
 ## Source Files
 
-As a default rule, files should contain a *single* logical compilation unit, i.e., a single class, trait or object.
+- As a default rule, files should contain a *single* logical compilation unit, i.e., a single class, trait or object.
 
-The exceptions to this rule are:
+- The exceptions to this rule are:
 
-- Classes or traits which have companion objects. Companion objects should be grouped with their corresponding class or trait in the same file. These files should be named according to the class, trait or object they contain:
+  * Classes or traits which have companion objects. Companion objects should be grouped with their corresponding class or trait in the same file. These files should be named according to the class, trait or object they contain:
 
-  ```scala
-  package com.novell.coolness
+    ```scala
+    package com.novell.coolness
 
-  class Inbox { ... }
+    class Inbox { ... }
 
-  // companion object
-  object Inbox { ... }
-  ```
+    // companion object
+    object Inbox { ... }
+    ```
 
-  These compilation units should be placed within a file named
-`Inbox.scala` within the `com/novell/coolness` directory. In short, the Java file naming and positioning conventions should be preferred, despite the fact that Scala allows for greater flexibility in this regard.
+    These compilation units should be placed within a file named `Inbox.scala` within the `com/novell/coolness` directory. In short, the Java file naming and positioning conventions should be preferred, despite the fact that Scala allows for greater flexibility in this regard.
 
-  The object definition should come after the class definiiton in the file.
+    The object definition should come after the class definiiton in the file.
 
-- A sealed trait and its sub-classes (often emulating the ADT language feature available in functional languages):
+  * A sealed trait and its sub-classes (often emulating the ADT language feature available in functional languages):
 
-  ```scala
-  sealed trait Option[+A]
+    ```scala
+    sealed trait Option[+A]
 
-  case class Some[A](a: A) extends Option[A]
+    case class Some[A](a: A) extends Option[A]
 
-  case object None extends Option[Nothing]
-```
+    case object None extends Option[Nothing]
+    ```
 
-  Because of the nature of sealed superclasses (and traits), all subtypes *must* be included in the same file.
+    Because of the nature of sealed superclasses (and traits), all subtypes *must* be included in the same file.
 
-- When multiple classes logically form a single, cohesive group, sharing concepts to the point where maintenance is greatly served by containing them within a single file.
+  * When multiple classes logically form a single, cohesive group, sharing concepts to the point where maintenance is greatly served by containing them within a single file.
 
-  However, keep in mind that when multiple units are contained within a single file, it is often more difficult to find specific units when it comes time to make changes.
+    However, keep in mind that when multiple units are contained within a single file, it is often more difficult to find specific units when it comes time to make changes.
 
-**All multi-unit files containing units with different names (not just a class and its companion object) should be given camelCase names with a lower-case first letter.** This is a very important convention. It differentiates multi- from single-unit files, greatly easing the process of finding declarations. These filenames may be based upon a significant type which they contain (e.g.,s `option.scala` for the example above), or may be descriptive of the logical property shared by all units within (e.g., `ast.scala`).
+  **All multi-unit files containing units with different names (not just a class and its companion object) should be given camelCase names with a lower-case first letter.** This is a very important convention. It differentiates multi- from single-unit files, greatly easing the process of finding declarations. These filenames may be based upon a significant type which they contain (e.g.,s `option.scala` for the example above), or may be descriptive of the logical property shared by all units within (e.g., `ast.scala`).
 
 
 ## Java Interoperability
@@ -1340,42 +1321,42 @@ This section covers guidelines for building Java compatible APIs. **These do not
 
 ### Traits and Abstract Classes
 
-For interfaces that can be implemented externally, keep in mind that raits with default method implementations are not usable in Java. Use abstract classes instead.
+- For interfaces that can be implemented externally, keep in mind that traits with default method implementations are not usable in Java. Use abstract classes instead.
 
-```scala
-// The default implementation doesn't work in Java
-trait Listener {
-  def onTermination(): Unit = { ... }
-}
+  ```scala
+  // The default implementation doesn't work in Java
+  trait Listener {
+    def onTermination(): Unit = { ... }
+  }
 
-// Works in Java
-abstract class Listener {
-  def onTermination(): Unit = { ... }
-}
-```
+  // Works in Java
+  abstract class Listener {
+    def onTermination(): Unit = { ... }
+  }
+  ```
 
 
 ### Type Aliases
 
-Do NOT use type aliases. They are not visible in bytecode (and Java).
+- Do NOT use type aliases. They are not visible in bytecode (and Java).
 
 
 ### Default Parameter Values
 
-Do NOT use default parameter values. Overload the method instead.
+- Do NOT use default parameter values. Overload the method instead.
 
-```scala
-// Breaks Java interoperability
-def sample(ratio: Double, withReplacement: Boolean = false): RDD[T] = { ... }
+  ```scala
+  // Breaks Java interoperability
+  def sample(ratio: Double, withReplacement: Boolean = false): RDD[T] = { ... }
 
-// The following two work
-def sample(ratio: Double, withReplacement: Boolean): RDD[T] = { ... }
-def sample(ratio: Double): RDD[T] = sample(ratio, withReplacement = false)
-```
+  // The following two work
+  def sample(ratio: Double, withReplacement: Boolean): RDD[T] = { ... }
+  def sample(ratio: Double): RDD[T] = sample(ratio, withReplacement = false)
+  ```
 
 ### Multiple Parameter Lists
 
-Do NOT use multi-parameter lists.
+- Do NOT use multi-parameter lists.
 
 ### Varargs
 
@@ -1386,7 +1367,7 @@ Do NOT use multi-parameter lists.
   def select(exprs: Expression*): DataFrame = { ... }
   ```
 
-- Note that abstract vararg methods does NOT work for Java, due to a Scala compiler bug ([SI-1459](https://issues.scala-lang.org/browse/SI-1459), [SI-9013](https://issues.scala-lang.org/browse/SI-9013)).
+  *Note that abstract vararg methods do NOT work for Java, due to a Scala compiler bug ([SI-1459](https://issues.scala-lang.org/browse/SI-1459), [SI-9013](https://issues.scala-lang.org/browse/SI-9013)).*
 
 - Be careful with overloading varargs methods. Overloading a vararg method with another vararg type can break source compatibility.
 
@@ -1403,6 +1384,7 @@ Do NOT use multi-parameter lists.
   // This won't compile anymore because it is ambiguous
   new Database().remove()
   ```
+
   Instead, define an explicit first parameter followed by vararg:
 
   ```scala
@@ -1419,36 +1401,38 @@ Do NOT use multi-parameter lists.
 
 ### Implicits
 
-Do NOT use implicits, for a class or method. This includes `ClassTag`, `TypeTag`.
+- Do NOT use implicits, for a class or method. This includes `ClassTag`, `TypeTag`.
 
-```scala
-class JavaFriendlyAPI {
-  // This is NOT Java friendly, since the method contains an implicit parameter (ClassTag).
-  def convertTo[T: ClassTag](): T
-}
-```
+  ```scala
+  class JavaFriendlyAPI {
+    // This is NOT Java friendly, since the method contains an implicit parameter (ClassTag).
+    def convertTo[T: ClassTag](): T
+  }
+  ```
 
 
 ### Companion Objects, Static Methods, and Fields
 
 There are a few things to watch out for when it comes to companion objects and static methods/fields.
 
-- Methods in companion objects are automatically turned into static methods in the companion class (unless there is a method name conflict with a method with the same name in the class).
+Methods in companion objects are automatically turned into static methods in the companion class (unless there is a method name conflict with a method with the same name in the class).
 
-- Companion objects are awkward to use in Java (a companion object `Foo` is a static field `MODULE$` of type `Foo$` in class `Foo$`).
+Companion objects are awkward to use in Java (a companion object `Foo` is a static field `MODULE$` of type `Foo$` in class `Foo$`).
 
-  ```scala
-  object Foo
+```scala
+object Foo
 
-  // equivalent to the following Java code
-  public class Foo$ {
-    Foo$ MODULE$ = // instantiation of the object
-  }
-  ```
+// equivalent to the following Java code
+public class Foo$ {
+  Foo$ MODULE$ = // instantiation of the object
+}
+```
 
-  If the companion object is important to use, create a Java static field in a separate class.
+Guidelines:
 
-- There is no way to define a JVM static field in Scala. Create a Java file to define that if necessary.
+- If the companion object is important to use, create a Java static field in a separate class.
+
+- If a JVM static field is required, create a Java file to define it.  There is no way to define a JVM static field in Scala. 
 
 
 ## Concurrency
@@ -1464,86 +1448,90 @@ For the vast majority of the code you write, performance should not be a concern
 
 It is ridiculously hard to write a good microbenchmark because the Scala compiler and the JVM JIT compiler do a lot of magic to the code. More often than not, your microbenchmark code is not measuring the thing you want to measure.
 
-Use [jmh](http://openjdk.java.net/projects/code-tools/jmh/) if you are writing microbenchmark code. Make sure you read through [all the sample microbenchmarks](http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/) so you understand the effect of deadcode elimination, constant folding, and loop unrolling on microbenchmarks.
+Guidelines:
+
+- Use [jmh](http://openjdk.java.net/projects/code-tools/jmh/) if you are writing microbenchmark code. Make sure you read through [all the sample microbenchmarks](http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/) so you understand the effect of deadcode elimination, constant folding, and loop unrolling on microbenchmarks.
 
 
 ### Traversal and zipWithIndex
 
-Use `while` loops instead of `for` loops or functional transformations (e.g. `map`, `foreach`). For loops and functional transformations are very slow (due to virtual function calls and boxing).
+- Use `while` loops instead of `zipWithIndex` and `for` loops or functional transformations (e.g., `map`, `foreach`). For loops and functional transformations are very slow (due to virtual function calls and boxing).
 
-```scala
-val arr = // array of ints
-// zero out even positions
-val newArr = list.zipWithIndex.map { case (elem, i) =>
-  if (i % 2 == 0) 0 else elem
-}
+  ```scala
+  val arr = // array of ints
+  // zero out even positions
+  val newArr = list.zipWithIndex.map { case (elem, i) =>
+    if (i % 2 == 0) 0 else elem
+  }
 
-// This is a high performance version of the above
-val newArr = new Array[Int](arr.length)
-var i = 0
-val len = newArr.length
-while (i < len) {
-  newArr(i) = if (i % 2 == 0) 0 else arr(i)
-  i += 1
-}
-```
+  // This is a high performance version of the above
+  val newArr = new Array[Int](arr.length)
+  var i = 0
+  val len = newArr.length
+  while (i < len) {
+    newArr(i) = if (i % 2 == 0) 0 else arr(i)
+    i += 1
+  }
+  ```
 
 ### Option and null
 
-For performance sensitive code, prefer `null` over `Option`, in order to avoid virtual method calls and boxing. Label the nullable fields clearly with Nullable.
+- For performance sensitive code, prefer `null` over `Option`, in order to avoid virtual method calls and boxing. Label the nullable fields clearly with Nullable.
 
-```scala
-class Foo {
-  @javax.annotation.Nullable
-  private[this] var nullableField: Bar = _
-}
-```
+  ```scala
+  class Foo {
+    @javax.annotation.Nullable
+    private[this] var nullableField: Bar = _
+  }
+  ```
 
 ### Scala Collection Library
 
-For performance sensitive code, prefer Java collection library over Scala ones, since the Scala collection library often is slower than Java's.
+- For performance sensitive code, prefer Java collection library over Scala ones, since the Scala collection library often is slower than Java's.
 
 ### private[this]
 
-For performance sensitive code, prefer `private[this]` over `private`. `private[this]` generates a field, rather than creating an accessor method. In our experience, the JVM JIT compiler cannot always inline `private` field accessor methods, and thus it is safer to use `private[this]` to ensure no virtual method call for accessing a field.
+- For performance sensitive code, prefer `private[this]` over `private`.
 
-```scala
-class MyClass {
-  private val field1 = ...
-  private[this] val field2 = ...
+  `private[this]` generates a field, rather than creating an accessor method. In our experience, the JVM JIT compiler cannot always inline `private` field accessor methods, and thus it is safer to use `private[this]` to ensure no virtual method call for accessing a field.
 
-  def perfSensitiveMethod(): Unit = {
-    var i = 0
-    while (i < 1000000) {
-      field1  // This might invoke a virtual method call
-      field2  // This is just a field access
-      i += 1
+  ```scala
+  class MyClass {
+    private val field1 = ...
+    private[this] val field2 = ...
+
+    def perfSensitiveMethod(): Unit = {
+      var i = 0
+      while (i < 1000000) {
+        field1  // This might invoke a virtual method call
+        field2  // This is just a field access
+        i += 1
+      }
     }
   }
-}
-```
+  ```
 
 
 ## Miscellaneous
 
 ### Prefer nanoTime over currentTimeMillis
 
-When computing a *duration* or checking for a *timeout*, avoid using `System.currentTimeMillis()`. Use `System.nanoTime()` instead, even if you are not interested in sub-millisecond precision.
+- When computing a *duration* or checking for a *timeout*, avoid using `System.currentTimeMillis()`. Use `System.nanoTime()` instead, even if you are not interested in sub-millisecond precision.
 
-`System.currentTimeMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` is guaranteed to be monotonically increasing irrespective of wallclock changes.
+  `System.currentTimeMillis()` returns current wallclock time and will follow changes to the system clock. Thus, negative wallclock adjustments can cause timeouts to "hang" for a long time (until wallclock time has caught up to its previous value again).  This can happen when ntpd does a "step" after the network has been disconnected for some time. The most canonical example is during system bootup when DHCP takes longer than usual. This can lead to failures that are really hard to understand/reproduce. `System.nanoTime()` is guaranteed to be monotonically increasing irrespective of wallclock changes.
 
-Caveats:
+  Caveats:
 
-- Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless and system-specific and resets when the system reboots.
+  * Never serialize an absolute `nanoTime()` value or pass it to another system. The absolute value is meaningless and system-specific and resets when the system reboots.
 
-- The absolute `nanoTime()` value is not guaranteed to be positive (but `t2 - t1` is guaranteed to yield the right result)
+  * The absolute `nanoTime()` value is not guaranteed to be positive (but `t2 - t1` is guaranteed to yield the right result)
 
 
 ### Prefer URI over URL
 
-When storing the URL of a service, you should use the `URI` representation.
+- When storing the URL of a service, you should use the `URI` representation.
 
-The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
+  The [equality check](http://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals(java.lang.Object)) of `URL` actually performs a (blocking) network call to resolve the IP address. The `URI` class performs field equality and is a superset of `URL` as to what it can represent.
 
 
 
@@ -1553,91 +1541,73 @@ It is important to provide documentation for all packages, classes, traits, meth
 
 In general, you want to worry more about substance and writing style than in formatting. Scaladocs need to be useful to new users of the code as well as experienced users. Achieving this is very simple: increase the level of detail and explanation as you write, starting from a terse summary (useful for experienced users as reference), while providing deeper examples in the detailed sections (which can be ignored by experienced users, but can be invaluable for newcomers).
 
-The general format for a Scaladoc comment should be as follows:
+- The general format for a Scaladoc comment should be as follows:
 
-```scala
-/** This is a brief description of what's being documented.
-  *
-  * This is further documentation of what we're documenting.  It should
-  * provide more details as to how this works and what it does. 
-  */
-def myMethod = {}
-```
+  ```scala
+  /** This is a brief description of what's being documented.
+    *
+    * This is further documentation of what we're documenting.  It should
+    * provide more details as to how this works and what it does. 
+    */
+  def myMethod = {}
+  ```
 
-For methods and other type members where the only documentation needed
+- For methods and other type members where the only documentation needed
 is a simple, short description, this format can be used:
 
-```scala
-/** Does something very simple */
-def simple = {}
-```
+  ```scala
+  /** Does something very simple */
+  def simple = {}
+  ```
 
-Note, especially for those coming from Java, that the left-hand margin
+  Note, especially for those coming from Java, that the left-hand margin
 of asterisks falls under the \_third\_ column, not the second, as is
 customary in Java.
 
-See the [AuthorDocs](https://wiki.scala-lang.org/display/SW/Writing+Documentation)
-on the Scala wiki for more technical info on formatting Scaladoc.  See also this [Scaladoc tutorial](https://gist.github.com/VladUreche/8396624)
+See the [AuthorDocs](https://wiki.scala-lang.org/display/SW/Writing+Documentation) on the Scala wiki for more technical info on formatting Scaladoc.  See also this [Scaladoc tutorial](https://gist.github.com/VladUreche/8396624)
 
 ### General Style
 
-It is important to maintain a consistent style with Scaladoc. It is also
-important to target Scaladoc to both those unfamiliar with your code and
-experienced users who just need a quick reference. Here are some general
-guidelines:
+It is important to maintain a consistent style with Scaladoc. It is also important to target Scaladoc to both those unfamiliar with your code and experienced users who just need a quick reference. 
 
--   Get to the point as quickly as possible. For example, say "returns
-    true if some condition" instead of "if some condition return true".
--   Try to format the first sentence of a method as "Returns XXX", as in
-    "Returns the first element of the List", as opposed to "this method
-    returns" or "get the first" etc. Methods typically **return**
-    things.
--   This same goes for classes; omit "This class does XXX"; just say
-    "Does XXX"
--   Create links to referenced Scala Library classes using the
-    square-bracket syntax, e.g. `[[scala.Option]]`
--   Summarize a method's return value in the `@return` annotation,
-    leaving a longer description for the main Scaladoc.
--   If the documentation of a method is a one line description of what
-    that method returns, do not repeat it with an `@return` annotation.
--   Document what the method *does do* not what the method *should do*.
-    In other words, say "returns the result of applying f to x" rather
-    than "return the result of applying f to x". Subtle, but important.
--   When referring to the instance of the class, use "this XXX", or
-    "this" and not "the XXX". For objects, say "this object".
+Here are some general guidelines:
+
+-   Get to the point as quickly as possible. For example, say "returns     true if some condition" instead of "if some condition return true".
+-   Try to format the first sentence of a method as "Returns XXX", as in     "Returns the first element of the List", as opposed to "this method     returns" or "get the first" etc. Methods typically **return** things.
+-   This same goes for classes; omit "This class does XXX"; just say "Does XXX"
+-   Create links to referenced Scala Library classes using the square-bracket syntax, e.g. `[[scala.Option]]`
+-   Summarize a method's return value in the `@return` annotation, leaving a longer description for the main Scaladoc.
+-   If the documentation of a method is a one line description of what     that method returns, do not repeat it with an `@return` annotation.
+-   Document what the method *does do* not what the method *should do*. In other words, say "returns the result of applying f to x" rather than "return the result of applying f to x". Subtle, but important.
+-   When referring to the instance of the class, use "this XXX", or "this" and not "the XXX". For objects, say "this object".
 -   Make code examples consistent with this guide.
 -   Use the wiki-style syntax instead of HTML wherever possible.
--   Examples should use either full code listings or the REPL, depending
-    on what is needed (the simplest way to include REPL code is to
-    develop the examples in the REPL and paste it into the Scaladoc).
--   Make liberal use of `@macro` to refer to commonly-repeated values
-    that require special formatting.
+-   Examples should use either full code listings or the REPL, depending on what is needed (the simplest way to include REPL code is to develop the examples in the REPL and paste it into the Scaladoc).
+-   Make liberal use of `@macro` to refer to commonly-repeated values that require special formatting.
 
 ### Packages
 
-Provide Scaladoc for each package. This goes in a file named
-`package.scala` in your package's directory and looks like so (for the
-package `parent.package.name.mypackage`):
+- Provide Scaladoc for each package. This goes in a file named `package.scala` in your package's directory and looks like so (for the package `parent.package.name.mypackage`):
 
-```scala
-package parent.package.name
+  ```scala
+  package parent.package.name
 
-/** This is the Scaladoc for the package. */
-package object mypackage {
-}
-```
+  /** This is the Scaladoc for the package. */
+  package object mypackage {
+  }
+  ```
 
-A package's documentation should first document what sorts of classes
+  A package's documentation should first document what sorts of classes
 are part of the package. Secondly, document the general sorts of things
 the package object itself provides.
 
-While package documentation doesn't need to be a full-blown tutorial on
+  While package documentation doesn't need to be a full-blown tutorial on
 using the classes in the package, it should provide an overview of the
 major classes, with some basic examples of how to use the classes in
 that package. Be sure to reference classes using the square-bracket
 notation:
 
-```scala
+  ```scala
   package my.package
   /** Provides classes for dealing with complex numbers.  Also provides
     * implicits for converting to and from `Int`.
@@ -1658,97 +1628,91 @@ notation:
     * }}} 
     */
   package complex {}
-```
+  ```
 
 ### Classes, Objects, and Traits
 
-Document all classes, objects, and traits. The first sentence of the
-Scaladoc should provide a summary of what the class or trait does.
-Document all type parameters with `@tparam`.
+- Document all classes, objects, and traits. 
+
+- The first sentence of the Scaladoc should provide a summary of what the class or trait does.
+
+- Document all type parameters with `@tparam`.
 
 #### Classes
 
-If a class should be created using it's companion object, indicate as
-such after the description of the class (though leave the details of
-construction to the companion object). Unfortunately, there is currently
-no way to create a link to the companion object inline, however the
-generated Scaladoc will create a link for you in the class documentation
-output.
+- If a class should be created using its companion object, indicate that after the description of the class (though leave the details of construction to the companion object).
 
-If the class should be created using a constructor, document it using
+  Unfortunately, there is currently no way to create a link to the companion object inline. However, the generated Scaladoc will create a link for you in the class documentation output.
+
+-  If the class should be created using a constructor, document it using
 the `@constructor` syntax:
 
-```scala
-/** A person who uses our application.
-  *
-  * @constructor create a new person with a name and age.
-  * @param name the person's name
-  * @param age the person's age in years 
-  */
-class Person(name: String, age: Int) {
-}
-```
+  ```scala
+  /** A person who uses our application.
+    *
+    * @constructor create a new person with a name and age.
+    * @param name the person's name
+    * @param age the person's age in years 
+    */
+  class Person(name: String, age: Int) {
+  }
+  ```
 
-Depending on the complexity of your class, provide an example of common
-usage.
+- Depending on the complexity of your class, provide an example of common usage.
 
 #### Objects
 
-Since objects can be used for a variety of purposes, it is important to
-document *how* to use the object (e.g. as a factory, for implicit
-methods). If this object is a factory for other objects, indicate as
-such here, deferring the specifics to the Scaladoc for the `apply`
-method(s). If your object *doesn't* use `apply` as a factory method, be
-sure to indicate the actual method names:
+- Document *how* to use the object (e.g., as a factory, for implicit methods).
 
-```scala
-/** Factory for [[mypackage.Person]] instances. */
-object Person {
-  /** Creates a person with a given name and age.
-    *
-    * @param name their name
-    * @param age the age of the person to create 
-    */
-  def apply(name: String, age: Int) = {}
+  * If the object is a factory for other objects, indicate that, deferring the specifics to the Scaladoc for the `apply` method(s):
 
-  /** Creates a person with a given name and birthdate
-    *
-    * @param name their name
-    * @param birthDate the person's birthdate
-    * @return a new Person instance with the age determined by the 
-    *         birthdate and current date. 
-    */
-  def apply(name: String, birthDate: java.util.Date) = {}
-}
-```
+    ```scala
+    /** Factory for [[mypackage.Person]] instances. */
+    object Person {
+      /** Creates a person with a given name and age.
+        *
+        * @param name their name
+        * @param age the age of the person to create 
+        */
+      def apply(name: String, age: Int) = {}
 
-If your object holds implicit conversions, provide an example in the
+      /** Creates a person with a given name and birthdate
+        *
+        * @param name their name
+        * @param birthDate the person's birthdate
+        * @return a new Person instance with the age determined by the 
+        *         birthdate and current date. 
+        */
+      def apply(name: String, birthDate: java.util.Date) = {}
+    }
+    ```
+
+  * If your object holds implicit conversions, provide an example in the
 Scaladoc:
 
-```scala
-/** Implicit conversions and helpers for [[mypackage.Complex]] instances.
-  *
-  * {{ "{{{" }}
-  * import ComplexImplicits._
-  * val c: Complex = 4 + 3.i
-  * }}} 
-  */
-object ComplexImplicits {}
-```
+    ```scala
+    /** Implicit conversions and helpers for [[mypackage.Complex]] instances.
+      *
+      * {{ "{{{" }}
+      * import ComplexImplicits._
+      * val c: Complex = 4 + 3.i
+      * }}} 
+      */
+    object ComplexImplicits {}
+    ```
 
 #### Traits
 
-After the overview of what the trait does, provide an overview of the
-methods and types that must be specified in classes that mix in the
-trait. If there are known classes using the trait, reference them.
+- After the overview of what the trait does, provide an overview of the methods and types that must be specified in classes that mix in the trait. If there are known classes using the trait, reference them.
 
 ### Methods and Other Members
 
-Document all methods. As with other documentable entities, the first
-sentence should be a summary of what the method does. Subsequent
-sentences explain in further detail. Document each parameter as well as
-each type parameter (with `@tparam`). For curried functions, consider
-providing more detailed examples regarding the expected or idiomatic
-usage. For implicit parameters, take special care to explain where
-these parameters will come from and if the user needs to do any extra
-work to make sure the parameters will be available.
+- Document all public and protected methods.
+
+  * As with other documentable entities, the first sentence should be a summary of what the method does. Subsequent sentences provide further detail. 
+
+  * Document each parameter as well as each type parameter (with `@tparam`). 
+
+  * For implicit parameters, take special care to explain where these parameters will come from and if the user needs to do any extra work to make sure the parameters will be available.
+
+- For curried functions, consider providing more detailed examples regarding the expected or idiomatic usage.
