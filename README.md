@@ -6,7 +6,7 @@ Contents
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Attribution and Licenses](#attribution-and-licenses)
+- [Attribution and License](#attribution-and-license)
 - [Introduction](#introduction)
 - [Document History](#document-history)
 - [Syntactic Style](#syntactic-style)
@@ -97,7 +97,7 @@ Contents
 
 <!-- /TOC -->
 
-## Attribution and Licenses
+## Attribution and License
 
 This guide is based on the [Databricks Scala Guide](https://github.com/databricks/scala-style-guide) as of 2016-08-12.  That work is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).  Use and adaptation of that work are in accordance with the aforementioned license.
 
