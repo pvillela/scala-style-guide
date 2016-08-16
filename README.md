@@ -4,6 +4,98 @@ Scala Style Guide
 Contents
 --------
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Attribution and License](#attribution-and-license)
+- [Introduction](#introduction)
+- [Document History](#document-history)
+- [Syntactic Style](#syntactic-style)
+  - [General Alignment and Spacing](#general-alignment-and-spacing)
+    - [General Indentation](#general-indentation)
+    - [Line Length](#line-length)
+    - [Line Wrapping](#line-wrapping)
+    - [Blank Lines](#blank-lines)
+    - [Curly Braces](#curly-braces)
+    - [Parentheses](#parentheses)
+  - [Naming Convention](#naming-convention)
+    - [Classes, Traits, Objects](#classes-traits-objects)
+    - [Packages](#packages)
+    - [Variables, Methods, and Functions](#variables-methods-and-functions)
+      - [Special Note on Brevity](#special-note-on-brevity)
+    - [Constants](#constants)
+    - [Enums](#enums)
+    - [Annotations](#annotations)
+    - [Underscores in Names](#underscores-in-names)
+    - [Type Parameters](#type-parameters)
+      - [Parameterized Type Parameters](#parameterized-type-parameters)
+  - [Class Declarations](#class-declarations)
+    - [Header and Constructor](#header-and-constructor)
+    - [Ordering Of Class Elements](#ordering-of-class-elements)
+  - [Imports](#imports)
+  - [Method Declarations](#method-declarations)
+    - [Return Type](#return-type)
+    - [Modifiers](#modifiers)
+    - [Declaring Methods of Arity 0](#declaring-methods-of-arity-0)
+    - [Short Functional Methods](#short-functional-methods)
+    - [Longer Methods or Methods With Side-Effects](#longer-methods-or-methods-with-side-effects)
+    - [Methods With Default Parameter Values](#methods-with-default-parameter-values)
+    - [Methods With a Single Match Expression](#methods-with-a-single-match-expression)
+    - [Procedure Syntax](#procedure-syntax)
+  - [Field Declarations](#field-declarations)
+  - [Method Invocations](#method-invocations)
+    - [Invoking Methods of Arity 0](#invoking-methods-of-arity-0)
+    - [Infix Methods](#infix-methods)
+    - [Methods With Multiple Arguments](#methods-with-multiple-arguments)
+    - [Methods Taking a Function as a Parameter](#methods-taking-a-function-as-a-parameter)
+  - [Control Structures](#control-structures)
+    - [Comprehensions](#comprehensions)
+  - [Function Values](#function-values)
+  - [Long Literals](#long-literals)
+  - [Rule of 30](#rule-of-30)
+- [Scala Language Features](#scala-language-features)
+  - [apply Method](#apply-method)
+  - [override Modifier](#override-modifier)
+  - [Call by Name](#call-by-name)
+  - [Multiple Parameter Lists](#multiple-parameter-lists)
+  - [Accessors/Mutators](#accessorsmutators)
+  - [Symbolic Methods -- Operator Overloading](#symbolic-methods-operator-overloading)
+  - [Type Inference](#type-inference)
+  - [Function Types](#function-types)
+  - [Return Statements](#return-statements)
+  - [Recursion and Tail Recursion](#recursion-and-tail-recursion)
+  - [Implicits](#implicits)
+  - [Exception Handling (Try vs try)](#exception-handling-try-vs-try)
+  - [Options](#options)
+  - [Monadic Chaining](#monadic-chaining)
+- [Source Files](#source-files)
+- [Java Interoperability](#java-interoperability)
+  - [Traits and Abstract Classes](#traits-and-abstract-classes)
+  - [Type Aliases](#type-aliases)
+  - [Default Parameter Values](#default-parameter-values)
+  - [Multiple Parameter Lists](#multiple-parameter-lists)
+  - [Varargs](#varargs)
+  - [Implicits](#implicits)
+  - [Companion Objects, Static Methods, and Fields](#companion-objects-static-methods-and-fields)
+- [Concurrency](#concurrency)
+- [Performance](#performance)
+  - [Microbenchmarks](#microbenchmarks)
+  - [Traversal and zipWithIndex](#traversal-and-zipwithindex)
+  - [Option and null](#option-and-null)
+  - [Scala Collection Library](#scala-collection-library)
+  - [private[this]](#privatethis)
+- [Miscellaneous](#miscellaneous)
+  - [Prefer nanoTime over currentTimeMillis](#prefer-nanotime-over-currenttimemillis)
+  - [Prefer URI over URL](#prefer-uri-over-url)
+- [Scaladoc](#scaladoc)
+  - [General Style](#general-style)
+  - [Packages](#packages)
+  - [Classes, Objects, and Traits](#classes-objects-and-traits)
+    - [Classes](#classes)
+    - [Objects](#objects)
+    - [Traits](#traits)
+  - [Methods and Other Members](#methods-and-other-members)
+
+<!-- /TOC -->
 
 ## Attribution and License
 
@@ -202,7 +294,7 @@ We mostly follow Java's and Scala's standard naming conventions.
 
   ```scala
   private def add(a: Int, b: Int) = a + b
-  
+
   def foo(): Unit = {
     ...
     val myAddFunction = (a: Int, b: Int) = a + b
@@ -385,9 +477,9 @@ We mostly follow Java's and Scala's standard naming conventions.
   }
   ```
 
-- Fields should precede methods in a scope. 
+- Fields should precede methods in a scope.
 
-  * The only exception is if the val has a block definition (more than one expression) and performs operations which may be deemed “method-like” (e.g., computing the length of a List). In such cases, the non-trivial val may be declared at a later point in the file as logical member ordering would dictate. 
+  * The only exception is if the val has a block definition (more than one expression) and performs operations which may be deemed “method-like” (e.g., computing the length of a List). In such cases, the non-trivial val may be declared at a later point in the file as logical member ordering would dictate.
   * This exception only applies to val and lazy val (**never to var**)! It becomes very difficult to track changing aliases if var declarations are strewn throughout class file.
 
 - If a class is long and has many methods, group them logically into different sections, and use comment headers to organize them.
@@ -1146,7 +1238,7 @@ conventions are used:
 
   * You are using it privately to your own class to reduce verbosity of converting from one type to another (e.g., Scala closure to Java closure)
 
-  When implicits are used, we must ensure that another engineer who did not author the code can understand the semantics of the usage without reading the implicit definition itself. 
+  When implicits are used, we must ensure that another engineer who did not author the code can understand the semantics of the usage without reading the implicit definition itself.
 
   Implicits have complicated resolution rules and make the code base difficult to understand. From Twitter's Effective Scala guide: "If you do find yourself using implicits, always ask yourself if there is a way to achieve the same thing without their help."
 
@@ -1432,7 +1524,7 @@ Guidelines:
 
 - If the companion object is important to use, create a Java static field in a separate class.
 
-- If a JVM static field is required, create a Java file to define it.  There is no way to define a JVM static field in Scala. 
+- If a JVM static field is required, create a Java file to define it.  There is no way to define a JVM static field in Scala.
 
 
 ## Concurrency
@@ -1547,7 +1639,7 @@ In general, you want to worry more about substance and writing style than in for
   /** This is a brief description of what's being documented.
     *
     * This is further documentation of what we're documenting.  It should
-    * provide more details as to how this works and what it does. 
+    * provide more details as to how this works and what it does.
     */
   def myMethod = {}
   ```
@@ -1568,7 +1660,7 @@ See the [AuthorDocs](https://wiki.scala-lang.org/display/SW/Writing+Documentatio
 
 ### General Style
 
-It is important to maintain a consistent style with Scaladoc. It is also important to target Scaladoc to both those unfamiliar with your code and experienced users who just need a quick reference. 
+It is important to maintain a consistent style with Scaladoc. It is also important to target Scaladoc to both those unfamiliar with your code and experienced users who just need a quick reference.
 
 Here are some general guidelines:
 
@@ -1619,20 +1711,20 @@ notation:
     * complex: my.package.complex.Complex = 4 + 3i
     * }}}
     *
-    * If you include [[my.package.complex.ComplexConversions]], you can 
+    * If you include [[my.package.complex.ComplexConversions]], you can
     * convert numbers more directly
     * {{ "{{{" }}
     * scala> import my.package.complex.ComplexConversions._
     * scala> val complex = 4 + 3.i
     * complex: my.package.complex.Complex = 4 + 3i
-    * }}} 
+    * }}}
     */
   package complex {}
   ```
 
 ### Classes, Objects, and Traits
 
-- Document all classes, objects, and traits. 
+- Document all classes, objects, and traits.
 
 - The first sentence of the Scaladoc should provide a summary of what the class or trait does.
 
@@ -1652,7 +1744,7 @@ the `@constructor` syntax:
     *
     * @constructor create a new person with a name and age.
     * @param name the person's name
-    * @param age the person's age in years 
+    * @param age the person's age in years
     */
   class Person(name: String, age: Int) {
   }
@@ -1672,7 +1764,7 @@ the `@constructor` syntax:
       /** Creates a person with a given name and age.
         *
         * @param name their name
-        * @param age the age of the person to create 
+        * @param age the age of the person to create
         */
       def apply(name: String, age: Int) = {}
 
@@ -1680,8 +1772,8 @@ the `@constructor` syntax:
         *
         * @param name their name
         * @param birthDate the person's birthdate
-        * @return a new Person instance with the age determined by the 
-        *         birthdate and current date. 
+        * @return a new Person instance with the age determined by the
+        *         birthdate and current date.
         */
       def apply(name: String, birthDate: java.util.Date) = {}
     }
@@ -1696,7 +1788,7 @@ Scaladoc:
       * {{ "{{{" }}
       * import ComplexImplicits._
       * val c: Complex = 4 + 3.i
-      * }}} 
+      * }}}
       */
     object ComplexImplicits {}
     ```
@@ -1709,9 +1801,9 @@ Scaladoc:
 
 - Document all public and protected methods.
 
-  * As with other documentable entities, the first sentence should be a summary of what the method does. Subsequent sentences provide further detail. 
+  * As with other documentable entities, the first sentence should be a summary of what the method does. Subsequent sentences provide further detail.
 
-  * Document each parameter as well as each type parameter (with `@tparam`). 
+  * Document each parameter as well as each type parameter (with `@tparam`).
 
   * For implicit parameters, take special care to explain where these parameters will come from and if the user needs to do any extra work to make sure the parameters will be available.
 
