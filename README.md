@@ -1122,7 +1122,7 @@ conventions are used:
 
 ### Return Statements
 
-**Do not use `return`.**
+- **Do not use `return`.**
 
 
 ### Recursion and Tail Recursion
