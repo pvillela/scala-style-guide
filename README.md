@@ -6,7 +6,7 @@ Contents
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Attribution and License](#attribution-and-license)
+- [Attribution and Licenses](#attribution-and-licenses)
 - [Introduction](#introduction)
 - [Document History](#document-history)
 - [Syntactic Style](#syntactic-style)
@@ -58,7 +58,7 @@ Contents
   - [Call by Name](#call-by-name)
   - [Multiple Parameter Lists](#multiple-parameter-lists)
   - [Accessors/Mutators](#accessorsmutators)
-  - [Symbolic Methods -- Operator Overloading](#symbolic-methods-operator-overloading)
+  - [Symbolic Methods](#symbolic-methods)
   - [Type Inference](#type-inference)
   - [Function Types](#function-types)
   - [Return Statements](#return-statements)
@@ -70,11 +70,11 @@ Contents
 - [Source Files](#source-files)
 - [Java Interoperability](#java-interoperability)
   - [Traits and Abstract Classes](#traits-and-abstract-classes)
-  - [Type Aliases](#type-aliases)
-  - [Default Parameter Values](#default-parameter-values)
-  - [Multiple Parameter Lists](#multiple-parameter-lists)
+  - [No Type Aliases](#no-type-aliases)
+  - [No Default Parameter Values](#no-default-parameter-values)
+  - [No Multiple Parameter Lists](#no-multiple-parameter-lists)
   - [Varargs](#varargs)
-  - [Implicits](#implicits)
+  - [No Implicits](#no-implicits)
   - [Companion Objects, Static Methods, and Fields](#companion-objects-static-methods-and-fields)
 - [Concurrency](#concurrency)
 - [Performance](#performance)
@@ -97,7 +97,7 @@ Contents
 
 <!-- /TOC -->
 
-## Attribution and License
+## Attribution and Licenses
 
 This guide is based on the [Databricks Scala Guide](https://github.com/databricks/scala-style-guide) as of 2016-08-12.  That work is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/).  Use and adaptation of that work are in accordance with the aforementioned license.
 
@@ -1136,7 +1136,7 @@ conventions are used:
     ```
 
 
-### Symbolic Methods -- Operator Overloading
+### Symbolic Methods
 
 - **Do NOT define methods with symbolic names**, unless you are defining them for natural arithmetic operations (e.g. `+`, `-`, `*`, `/`).
 
@@ -1428,12 +1428,12 @@ This section covers guidelines for building Java compatible APIs. **These do not
   ```
 
 
-### Type Aliases
+### No Type Aliases
 
 - Do NOT use type aliases. They are not visible in bytecode (and Java).
 
 
-### Default Parameter Values
+### No Default Parameter Values
 
 - Do NOT use default parameter values. Overload the method instead.
 
@@ -1446,7 +1446,7 @@ This section covers guidelines for building Java compatible APIs. **These do not
   def sample(ratio: Double): RDD[T] = sample(ratio, withReplacement = false)
   ```
 
-### Multiple Parameter Lists
+### No Multiple Parameter Lists
 
 - Do NOT use multi-parameter lists.
 
@@ -1491,7 +1491,7 @@ This section covers guidelines for building Java compatible APIs. **These do not
   ```
 
 
-### Implicits
+### No Implicits
 
 - Do NOT use implicits, for a class or method. This includes `ClassTag`, `TypeTag`.
 
